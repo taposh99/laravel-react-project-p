@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\BrandController;
 use App\Http\Controllers\API\DashboardController;
 
 // Public routes
@@ -21,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     // Products
     Route::apiResource('products', ProductController::class);
+    Route::apiResource('brands', BrandController::class);
     
     // Categories
     Route::apiResource('categories', CategoryController::class);

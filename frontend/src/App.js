@@ -8,6 +8,7 @@ import Layout from './components/common/Layout';
 import Dashboard from './components/admin/Dashboard';
 import Products from './components/admin/Products';
 import Categories from './components/admin/Categories';
+import Brands from './components/admin/Brands';
 import PrivateRoute from './components/common/PrivateRoute';
 
 const AppRoutes = () => {
@@ -27,6 +28,7 @@ const AppRoutes = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="products" element={<Products />} />
         <Route path="categories" element={<Categories />} />
+        <Route path="brands" element={<Brands />} />
       </Route>
       
       <Route path="/" element={<Navigate to="/admin/dashboard" />} />
