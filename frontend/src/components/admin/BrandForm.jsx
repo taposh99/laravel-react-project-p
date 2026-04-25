@@ -57,7 +57,7 @@ const ProductForm = ({ product, categories, onSubmit, onClose }) => {
       <div className="relative top-20 mx-auto p-5 border w-full max-w-2xl shadow-lg rounded-lg bg-white">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold text-gray-900">
-            {product ? 'Edit Product' : 'Add New Product'}
+            {product ? 'Edit Brand' : 'Add New Brand'}
           </h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             <XMarkIcon className="h-6 w-6" />
