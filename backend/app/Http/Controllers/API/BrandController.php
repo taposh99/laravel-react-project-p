@@ -56,9 +56,7 @@ class BrandController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
+          
             'status' => 'required|in:active,inactive'
         ]);
 
@@ -71,14 +69,14 @@ class BrandController extends Controller
             
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('uploads/products'), $imageName);
-            $productData['image'] = 'uploads/products/' . $imageName;
+            $image->move(public_path('uploads/brands'), $imageName);
+            $productData['image'] = 'uploads/brands/' . $imageName;
         }
 
         $product->update($productData);
 
         return response()->json([
-            'product' => $product->load('category'),
+            'product' => $product,
             'message' => 'Brand updated successfully'
         ]);
     }

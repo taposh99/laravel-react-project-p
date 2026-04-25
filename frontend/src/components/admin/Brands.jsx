@@ -6,40 +6,30 @@ import toast from 'react-hot-toast';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
 
   useEffect(() => {
     fetchProducts();
-    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
     try {
-      const response = await API.get('/products');
+      const response = await API.get('/brands');
       setProducts(response.data);
     } catch (error) {
-      toast.error('Failed to fetch products');
+      toast.error('Failed to fetch brands');
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchCategories = async () => {
-    try {
-      const response = await API.get('/categories');
-      setCategories(response.data);
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    }
-  };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
+    if (window.confirm('Are you sure you want to delete this brand?')) {
       try {
-        await API.delete(`/products/${id}`);
+        await API.delete(`/brands/${id}`);
         toast.success('Product deleted successfully');
         fetchProducts();
       } catch (error) {
@@ -96,9 +86,8 @@ const Products = () => {
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
@@ -120,9 +109,7 @@ const Products = () => {
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{product.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{product.category?.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${product.price}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{product.stock}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{product.description}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                       product.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
@@ -157,7 +144,6 @@ const Products = () => {
       {showForm && (
         <BrandForm
           product={editingProduct}
-          categories={categories}
           onSubmit={handleSubmit}
           onClose={() => {
             setShowForm(false);
