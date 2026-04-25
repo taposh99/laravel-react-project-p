@@ -30,6 +30,8 @@ const Products = () => {
   const fetchCategories = async () => {
     try {
       const response = await API.get('/categories');
+       console.log('Full response:', response);
+          console.log('Response data:', response.data); 
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);
