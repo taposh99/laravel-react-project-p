@@ -50,22 +50,26 @@ const Products = () => {
     }
   };
 
-  const handleSubmit = async (formData) => {
-    try {
-      if (editingProduct) {
-        await API.post(`/brands/${editingProduct.id}?_method=PUT`, formData);
-        toast.success('brands updated successfully');
-      } else {
-        await API.post('/brands', formData);
-        toast.success('brands created successfully');
-      }
-      setShowForm(false);
-      setEditingProduct(null);
-      fetchProducts();
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Operation failed');
+const handleSubmit = async (formData) => {
+  try {
+    if (editingProduct) {
+      await API.post(
+        `/brands/${editingProduct.id}?_method=PUT`,
+        formData
+      );
+      toast.success('brands updated successfully');
+    } else {
+      await API.post('/brands', formData);
+      toast.success('brands created successfully');
     }
-  };
+
+    setShowForm(false);
+    setEditingProduct(null);
+    fetchProducts();
+  } catch (error) {
+    toast.error(error.response?.data?.message || 'Operation failed');
+  }
+};
 
   if (loading) {
     return (

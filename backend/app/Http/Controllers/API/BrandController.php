@@ -18,6 +18,7 @@ class BrandController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
@@ -52,13 +53,14 @@ class BrandController extends Controller
 
     public function update(Request $request, $id)
     {
-        $product = Brand::findOrFail($id);
+      $product = Brand::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
             'status' => 'required|in:active,inactive'
         ]);
+
 
         $productData = $request->except('image');
 
