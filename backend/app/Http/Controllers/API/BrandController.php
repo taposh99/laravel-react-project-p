@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -11,7 +12,7 @@ class BrandController extends Controller
 {
     public function index()
     {
-        $products = Brand::get();
+        $products = Brand::with('category')->get();
         return response()->json($products);
     }
 
@@ -20,6 +21,7 @@ class BrandController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
+            'category_id' => 'required',
             'status' => 'required|in:active,inactive',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
         ]);
@@ -64,7 +66,7 @@ class BrandController extends Controller
             if ($product->image && file_exists(public_path($product->image))) {
                 unlink(public_path($product->image));
             }
-            
+
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
             $image->move(public_path('uploads/brands'), $imageName);
@@ -82,11 +84,11 @@ class BrandController extends Controller
     public function destroy($id)
     {
         $product = Brand::findOrFail($id);
-        
+
         if ($product->image && file_exists(public_path($product->image))) {
             unlink(public_path($product->image));
         }
-        
+
         $product->delete();
 
         return response()->json(['message' => 'Brand deleted successfully']);

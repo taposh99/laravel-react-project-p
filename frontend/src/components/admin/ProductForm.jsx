@@ -5,8 +5,6 @@ const ProductForm = ({ product, categories, onSubmit, onClose }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    price: '',
-    stock: '',
     category_id: '',
     status: 'active',
     image: null
@@ -133,9 +131,11 @@ const ProductForm = ({ product, categories, onSubmit, onClose }) => {
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="">Select Category</option>
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
+                {categories?.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
               </select>
             </div>
 

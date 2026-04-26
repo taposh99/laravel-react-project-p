@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
-    protected $table = 'brands';
+     protected $guarded = [];
+     protected $table = 'brands';
 
-    protected $fillable = [
-        'name', 'slug', 'description', 
-       'image',  'status'
-    ];
+  public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
-   
+
 }

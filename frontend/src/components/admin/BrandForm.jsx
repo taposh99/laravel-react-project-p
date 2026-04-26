@@ -6,7 +6,8 @@ const ProductForm = ({ product, categories, onSubmit, onClose }) => {
     name: '',
     description: '',
     status: 'active',
-    image: null
+    image: null,
+    category_id: '',
   });
   const [preview, setPreview] = useState(null);
 
@@ -16,6 +17,7 @@ const ProductForm = ({ product, categories, onSubmit, onClose }) => {
         name: product.name,
         description: product.description,
         status: product.status,
+        category_id: product.category_id,
         image: null
       });
       if (product.image) {
@@ -76,6 +78,21 @@ const ProductForm = ({ product, categories, onSubmit, onClose }) => {
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
+                    <div>
+              <label className="block text-sm font-medium text-gray-700">Category</label>
+              <select
+                name="category_id"
+                value={formData.category_id}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              >
+                <option value="">Select Category</option>
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
+              </select>
+            </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">Description</label>
